@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<script th:src="@{/js/sockjs-0.3.4.js}" > </script>
+<script th:src="@{/js/stomp.js}" > </script>
+<script th:src="@{/js/gamepage.js}" > </script>
+
+<script type="text/javascript">
+    var stompClient = null;
+    function setConnected(connected) {
+
+    }
+    function infoge() {
+        console.log("INFO GATHERING");
+        alert("INFO GETHERING");
+    }
+    function connect() {
+        var socket = new SockJS('/table');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function(frame) {
+            setConnected(true);
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/topic/messages', function(messageOutput) {
+                showMessageOutput(JSON.parse(messageOutput.body));
+            });
+        });
+    }
+
+    function disconnect() {
+        if(stompClient != null) {
+            stompClient.disconnect();
+        }
+        setConnected(false);
+        console.log("Disconnected");
+    }
+
+    function sendMessage(cid) {
+        stompClient.send("/app/table", {}, JSON.stringify({'from':'tabulator', 'cid':cid}));
+    }
+
+    function showMessageOutput(messageOutput) {
+        var cid = messageOutput.cid;
+        var color = messageOutput.color;
+        var audio = new Audio("resources/images/s3.mp3");
+        document.getElementById(cid).style.backgroundColor  = color;
+        document.getElementById(cid).style.opacity = '0.3';
+        audio.play()
+    }
+</script>
+<head>
+    <meta charset="UTF-8">
+    <title>SUT Game</title>
+</head>
+
+<style>
+    * { margin: 0; padding: 0; }
+    p { padding: 10px; }
+    #left { position: absolute; left: 0; top: 0; width: 50%; height: 100% }
+    #right { position: absolute; right: 0; top: 0; width: 50%; height: 100% }
+</style>
+<body onload="infoge2()">
+
+<div>
+    <div id="left">
+        <table height="100%" width="100%" border="1">
+            <tr>
+                <td id="A1" onclick="sendMessage('A1');" align="center">A1</td>
+                <td id="A2" onclick="sendMessage('A2');" align="center">A2</td>
+                <td id="A3" onclick="sendMessage('A3');" align="center">A3</td>
+            </tr>
+            <tr>
+                <td id="B1" onclick="sendMessage('B1');" align="center">B1</td>
+                <td id="B2" onclick="sendMessage('B2');" align="center">B2</td>
+                <td id="B3" onclick="sendMessage('B3');" align="center">B3</td>
+            </tr>
+            <tr>
+                <td id="C1" onclick="sendMessage('C1');" align="center">C1</td>
+                <td id="C2" onclick="sendMessage('C2');" align="center">C2</td>
+                <td id="C3" onclick="sendMessage('C3');" align="center">C3</td>
+            </tr>
+        </table>
+    </div>
+    <!-- SEC -->
+    <div id="right">
+        <table height="100%" width="100%" border="1">
+            <tr>
+                <td id="RA1" onclick="sendMessage('A1');" align="center">A1</td>
+                <td id="rA2" onclick="sendMessage('A2');" align="center">A2</td>
+                <td id="rA3" onclick="sendMessage('A3');" align="center">A3</td>
+            </tr>
+            <tr>
+                <td id="rB1" onclick="sendMessage('B1');" align="center">B1</td>
+                <td id="rB2" onclick="sendMessage('B2');" align="center">B2</td>
+                <td id="rB3" onclick="sendMessage('B3');" align="center">B3</td>
+            </tr>
+            <tr>
+                <td id="rC1" onclick="sendMessage('C1');" align="center">C1</td>
+                <td id="rC2" onclick="sendMessage('C2');" align="center">C2</td>
+                <td id="rC3" onclick="sendMessage('C3');" align="center">C3</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
