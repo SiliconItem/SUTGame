@@ -9,18 +9,13 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import ru.sut.BrainField.model.dto.FieldModel;
 import ru.sut.BrainField.model.event.UIEventGamer;
 import ru.sut.BrainField.model.event.UIPushGamer;
 import ru.sut.BrainField.service.TeamService;
 
-import javax.annotation.PostConstruct;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
-import java.util.Random;
 
 @Controller
 public class GameController {
@@ -44,16 +39,8 @@ public class GameController {
             fmb = teamService.configureField("VARIKAPI", 4);
         model.addAttribute("fma", fma);
         model.addAttribute("fmb", fmb);
-        return "game2"; //view
+        return "game"; //view
     }
 
-
-    @MessageMapping("/event")
-    @SendTo("/topic/messages")
-    public UIPushGamer send(final UIEventGamer event) throws Exception {
-        log.info("=====>>>> SEND to ChatController (/table)");
-        final String time = new SimpleDateFormat("HH:mm:ss").format(new Date());
-        return new UIPushGamer(event.getCommandName(), event.getTarget());
-    }
 
 }

@@ -1,10 +1,16 @@
 package ru.sut.BrainField.model.event;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 public class UIPushGamer {
 
     private String commandName;
     private String target;
-    private String color = "#ff0000";
+    private String color;
+    private Boolean action;
+    private String actionData;
+    private String actionReq1;
+    private String actionReq2;
 
 
     public UIPushGamer(String commandName, String target) {
@@ -34,5 +40,37 @@ public class UIPushGamer {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public Boolean getAction() {
+        return action;
+    }
+
+    public void setAction(Boolean action) {
+        this.action = action;
+    }
+
+    public String getActionData() {
+        return actionData;
+    }
+
+    public void setActionData(String actionData) {
+        this.actionData = actionData;
+    }
+
+    public String getActionReq1() {
+        return actionReq1;
+    }
+
+    public void setActionReq1(String actionReq1) {
+        this.actionReq1 = actionReq1;
+    }
+
+    public String getActionReq2() {
+        return actionReq2;
+    }
+
+    public void setActionReq2(String actionReq2) {
+        this.actionReq2 = actionReq2;
     }
 }
