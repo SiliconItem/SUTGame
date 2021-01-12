@@ -21,39 +21,29 @@
 
 
 <div>
-    <!-- Comm A -->
-    <div id="left">
-        <p align="center" th:text="${fma.commandName}"> </p>
-        <table height="90%" width="100%" border="1">
-            <tr>
-                <th:block th:each="item: ${fma.getQuestions()}">
-                    <td th:attr="id=${item.key}" th:data-id="${item.key}" th:onclick="sendMessage('fma', [[${item.key}]])" >
+    <div id="compos">
+    <table height="100%" width="100%" border="1">
+        <tr>
+            <th:block th:each="cell: ${field.cells}">
 
-                    </td>
-                    <th:block th:if="(${itemStat.index} + 1) % ${fma.fieldSize} eq 0 and ${itemStat.index} ge 2 " >
-                        <th:block th:utext="'</tr><tr>'"/>
-                    </th:block>
+                <td th:attr="id=${cell.cellCssId}"
+                    th:data-id="${cell.cellCssId}"
+                    th:onclick="sendMessage('test', [[${cell.cellCssId}]])"
+
+                    th:with="colItm=${((cellStat.index+1) % (field.fieldSize * 2))}"
+                    th:class="${colItm eq 0 or colItm gt 4}? 'comClass1' : 'comClass2'"
+                     >
+
+                    <span th:with="ffff=${((cellStat.index+1) % (field.fieldSize * 2))}" th:text="${ffff}"/>
+
+                </td>
+
+                <th:block th:if="(${cellStat.index} + 1) % (${field.fieldSize}*2) eq 0 and ${cellStat.index} ge 2 " >
+                    <th:block th:utext="'</tr><tr>'"/>
                 </th:block>
-            </tr>
-        </table>
-    </div>
-
-    <p></p>
-    <!-- Comm B -->
-    <div id="right">
-        <p align="center" th:text="${fmb.commandName}"></p>
-        <table height="90%" width="100%" border="1">
-            <tr>
-                <th:block th:each="item: ${fmb.getQuestions()}">
-                    <td th:attr="id=${item.key}" th:data-id="${item.key}" th:onclick="sendMessage('fmb', [[${item.key}]])" >
-
-                    </td>
-                    <th:block th:if="(${itemStat.index} + 1) % ${fmb.fieldSize} eq 0 and ${itemStat.index} ge 2 " >
-                        <th:block th:utext="'</tr><tr>'"/>
-                    </th:block>
-                </th:block>
-            </tr>
-        </table>
+            </th:block>
+        </tr>
+    </table>
     </div>
 </div>
 

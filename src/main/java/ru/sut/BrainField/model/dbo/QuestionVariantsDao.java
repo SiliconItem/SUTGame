@@ -3,15 +3,14 @@ package ru.sut.BrainField.model.dbo;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "question")
 public class QuestionVariantsDao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "quest_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "question_id")
     private QuestionDao question;
 
     private Boolean validResponse = Boolean.FALSE;
@@ -25,6 +24,7 @@ public class QuestionVariantsDao {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     public QuestionDao getQuestion() {
         return question;

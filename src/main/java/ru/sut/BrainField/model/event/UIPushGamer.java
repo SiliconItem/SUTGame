@@ -11,7 +11,8 @@ public class UIPushGamer {
     private String actionData;
     private String actionReq1;
     private String actionReq2;
-
+    private String actionReq3;
+    private String actionReq4;
 
     public UIPushGamer(String commandName, String target) {
         this.commandName = commandName;
@@ -72,5 +73,21 @@ public class UIPushGamer {
 
     public void setActionReq2(String actionReq2) {
         this.actionReq2 = actionReq2;
+    }
+
+    public String getActionReq3() {
+        return actionReq3;
+    }
+
+    public void setActionReq3(String actionReq3) {
+        this.actionReq3 = actionReq3;
+    }
+
+    public String getActionReq4() {
+        return actionReq4;
+    }
+
+    public void setActionReq4(String actionReq4) {
+        this.actionReq4 = actionReq4;
     }
 }

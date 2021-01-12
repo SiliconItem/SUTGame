@@ -2,9 +2,13 @@ package ru.sut.BrainField.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import ru.sut.BrainField.model.dbo.QuestionDao;
-import ru.sut.BrainField.model.dto.FieldModel;
+import ru.sut.BrainField.model.dto.CellModelDto;
+import ru.sut.BrainField.model.dto.FieldModelDto;
 import ru.sut.BrainField.repository.QuestionRepository;
 
 import javax.annotation.PostConstruct;
@@ -19,32 +23,37 @@ public class TeamService {
     @Autowired
     private QuestionRepository repository;
 
-    private static int PROB = 30;
+    @Value("${app.field.quesrand}")
+    private int PROB;
+    @Value("${app.field.size}")
+    private int fieldSize;
 
-    public FieldModel configureField(String commName, int fieldSize){
+    public static FieldModelDto field;
 
+    public void configureField(){
+        FieldModelDto fieldModelDto = new FieldModelDto(fieldSize);
         List<QuestionDao> questonsDao = repository.findAllByIdIsNotNull();
-        FieldModel fieldModel = new FieldModel(commName, fieldSize);
 
-        HashMap<String, QuestionDao> fieldPosition = new HashMap(fieldSize * fieldSize);
-        for (int i = 1 ; i <= fieldSize*fieldSize; i++){
+        for (int i = 1 ; i <= fieldModelDto.getFieldFullSize(); i++){
+            CellModelDto cell =  new CellModelDto(cssIdGenerator(), null);
             if (new Random().nextInt(100) > PROB) {
-                fieldPosition.put(cssIdGenerator(), questonsDao.get( new Random().nextInt(questonsDao.size())));
-            } else {
-                fieldPosition.put(cssIdGenerator(), null);
+                cell.setQuestionDao(questonsDao.get( new Random().nextInt(questonsDao.size())));
             }
+            if (i%2 != 0){
+                cell.setCellCssClass("comClass1");
+            } else {
+                cell.setCellCssClass("comClass2");
+            }
+            fieldModelDto.addCell(cell);
         }
 
-        fieldModel.setQuestions(fieldPosition);
-
-        //Debug
-        System.out.println("Info for command: " + commName);
-        for (Map.Entry<String, QuestionDao> entry : fieldPosition.entrySet()){
-            System.out.println("Key = " + entry.getKey() +
-                    ", Value = " + entry.getValue());
+        //debug
+        for (CellModelDto cell : fieldModelDto.getCells()){
+            System.out.println(cell.getCellCssId() + "\t" + cell.getQuestionDao());
         }
 
-        return fieldModel;
+        field = fieldModelDto;
+
     }
 
 
@@ -61,7 +70,6 @@ public class TeamService {
                 .toString();
 
         return generatedString;
-
     }
 
 }

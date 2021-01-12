@@ -4,43 +4,38 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import ru.sut.BrainField.model.dto.FieldModel;
-import ru.sut.BrainField.model.event.UIEventGamer;
-import ru.sut.BrainField.model.event.UIPushGamer;
 import ru.sut.BrainField.service.TeamService;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Controller
 public class GameController {
 
-    @Value("${app.field.size}")
-    private int fieldSize;
+    static Logger log = LoggerFactory.getLogger(GameController.class);
 
     @Autowired
-
     private TeamService teamService;
-    static Logger log = LoggerFactory.getLogger(GameController.class);
-    private static FieldModel fma;
-    private static FieldModel fmb;
+    @Value("${app.field.NameA}")
+    private String nameCmd1;
+    @Value("${app.field.NameB}")
+    private String nameCmd2;
+
 
     @GetMapping("/")
-    public String main(Model model) {
-
-        if (fma == null)
-            fma = teamService.configureField("TRANZISTORI", 4);
-        if (fmb == null)
-            fmb = teamService.configureField("VARIKAPI", 4);
-        model.addAttribute("fma", fma);
-        model.addAttribute("fmb", fmb);
+    public String root(Model model) {
+        if (TeamService.field == null){
+            teamService.configureField();
+        }
+        model.addAttribute("comName1", nameCmd1);
+        model.addAttribute("comName2", nameCmd2);
+        model.addAttribute("field", TeamService.field);
         return "game"; //view
     }
 
-
+    @GetMapping("/reset")
+    public String reset(Model model) {
+        teamService.configureField();
+        return "/"; //view
+    }
 }

@@ -5,14 +5,18 @@ import org.springframework.stereotype.Service;
 import ru.sut.BrainField.model.dbo.QuestionDao;
 import ru.sut.BrainField.model.dbo.QuestionVariantsDao;
 import ru.sut.BrainField.repository.QuestionRepository;
+import ru.sut.BrainField.repository.QuestionVariantsRepository;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Service
 public class TempDBConsist {
 
     @Autowired
     private QuestionRepository repo;
+    @Autowired
+    private QuestionVariantsRepository repo2;
     @PostConstruct
     public void fillDB(){
         QuestionDao q1 = new QuestionDao();
@@ -28,11 +32,20 @@ public class TempDBConsist {
         q1v4.setAnsText("Северная Америка");
         q1v1.setValidResponse(Boolean.TRUE);
 
-
         q1.addAnswer(q1v1);
         q1.addAnswer(q1v2);
         q1.addAnswer(q1v3);
         q1.addAnswer(q1v4);
+
+        q1v1.setQuestion(q1);
+        q1v2.setQuestion(q1);
+        q1v3.setQuestion(q1);
+        q1v4.setQuestion(q1);
+
+        repo2.save(q1v1);
+        repo2.save(q1v2);
+        repo2.save(q1v3);
+        repo2.save(q1v4);
         repo.save(q1);
 
         ///
@@ -54,6 +67,17 @@ public class TempDBConsist {
         q2.addAnswer(q2v3);
         q2.addAnswer(q2v4);
 
+        q2v1.setQuestion(q2);
+        q2v2.setQuestion(q2);
+        q2v3.setQuestion(q2);
+        q2v4.setQuestion(q2);
+
+        repo2.save(q2v1);
+        repo2.save(q2v2);
+        repo2.save(q2v3);
+        repo2.save(q2v4);
+        repo.save (q2);
+
         ///
         QuestionDao q3 = new QuestionDao();
         q3.setQuestText("Допускается ли заземление радиостанции подключением к батарее отопления?");
@@ -72,6 +96,17 @@ public class TempDBConsist {
         q3.addAnswer(q3v2);
         q3.addAnswer(q3v3);
         q3.addAnswer(q3v4);
+
+        q3v1.setQuestion(q3);
+        q3v2.setQuestion(q3);
+        q3v3.setQuestion(q3);
+        q3v4.setQuestion(q3);
+
+        repo2.save(q3v1);
+        repo2.save(q3v2);
+        repo2.save(q3v3);
+        repo2.save(q3v4);
+        repo.save (q3);
 
         ///
         QuestionDao q4 = new QuestionDao();
@@ -92,6 +127,17 @@ public class TempDBConsist {
         q4.addAnswer(q4v3);
         q4.addAnswer(q4v4);
 
+        q4v1.setQuestion(q4);
+        q4v2.setQuestion(q4);
+        q4v3.setQuestion(q4);
+        q4v4.setQuestion(q4);
+
+        repo2.save(q4v1);
+        repo2.save(q4v2);
+        repo2.save(q4v3);
+        repo2.save(q4v4);
+        repo.save (q4);
+
         ///
         QuestionDao q5 = new QuestionDao();
         q5.setQuestText("Укажите позывной сигнал любительской радиостанции, принадлежащей ветерану Великой Отечественной войны?");
@@ -111,13 +157,16 @@ public class TempDBConsist {
         q5.addAnswer(q5v3);
         q5.addAnswer(q5v4);
 
-        /////
+        q5v1.setQuestion(q5);
+        q5v2.setQuestion(q5);
+        q5v3.setQuestion(q5);
+        q5v4.setQuestion(q5);
 
-
-        repo.save(q2);
-        repo.save(q3);
-        repo.save(q4);
-        repo.save(q5);
+        repo2.save(q5v1);
+        repo2.save(q5v2);
+        repo2.save(q5v3);
+        repo2.save(q5v4);
+        repo.save (q5);
 
     }
 }

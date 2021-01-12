@@ -53,19 +53,23 @@ window.onclick = function (event) {
 
 function showMessageOutput(messageOutput) {
     var cid = messageOutput.target;
-    var commandName = messageOutput.commandName;
     var color = messageOutput.color;
     var audio = new Audio("/media/s3.mp3");
 
     var qAction = messageOutput.action;
     if (qAction) {
+        var ff1 = messageOutput.actionData;
+        var ff2 = messageOutput.actionReq1;
+        var ff3 = messageOutput.actionReq2;
+        var ff4 = messageOutput.actionReq3;
+
         var modal = $modal({
-            title: 'Текст заголовка',
-            content: '<p>Содержимое модального окна...</p>',
-            footerButtons: [
-                { class: 'btn btn__cancel', text: 'Отмена', handler: 'modalHandlerCancel' },
+            title: ff1,
+            content: ff2 +'<br>' + ff3 + '<br>' + ff4,
+         /*   footerButtons: [
+                { class: 'btn modal__btn-close', text: 'Отмена', handler: 'modalHandlerCancel' },
                 { class: 'btn btn__ok', text: 'ОК', handler: 'modalHandlerOk' }
-            ]
+            ]*/
         });
         modal.show();
     }
