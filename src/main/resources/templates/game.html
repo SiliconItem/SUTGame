@@ -5,24 +5,21 @@
 <script th:src="@{/js/stomp.js}" > </script>
 <script th:src="@{/js/gamepage.js}" > </script>
 
+<script th:src="@{/js/modal.js}" > </script>
+
+
 <link rel="stylesheet" th:href="@{/css/game.css}" />
 
 
 <head>
     <meta charset="UTF-8">
     <title>SUT Game</title>
-
 </head>
 
 
 <body onload="connect()">
 
-<div id="my_modal" class="modal">
-    <div class="modal_content">
-        <span class="close_modal_window">×</span>
-        <p>Модальное окно!</p>
-    </div>
-</div>
+
 <div>
     <!-- Comm A -->
     <div id="left">
@@ -30,7 +27,7 @@
         <table height="90%" width="100%" border="1">
             <tr>
                 <th:block th:each="item: ${fma.getQuestions()}">
-                    <td th:attr="id=${item.key}" th:data-id="${item.key}" th:onclick="sendMessage([[${item.key}]])" >
+                    <td th:attr="id=${item.key}" th:data-id="${item.key}" th:onclick="sendMessage('fma', [[${item.key}]])" >
 
                     </td>
                     <th:block th:if="(${itemStat.index} + 1) % ${fma.fieldSize} eq 0 and ${itemStat.index} ge 2 " >
@@ -48,7 +45,7 @@
         <table height="90%" width="100%" border="1">
             <tr>
                 <th:block th:each="item: ${fmb.getQuestions()}">
-                    <td th:attr="id=${item.key}" th:data-id="${item.key}" th:onclick="sendMessage([[${item.key}]])" >
+                    <td th:attr="id=${item.key}" th:data-id="${item.key}" th:onclick="sendMessage('fmb', [[${item.key}]])" >
 
                     </td>
                     <th:block th:if="(${itemStat.index} + 1) % ${fmb.fieldSize} eq 0 and ${itemStat.index} ge 2 " >
