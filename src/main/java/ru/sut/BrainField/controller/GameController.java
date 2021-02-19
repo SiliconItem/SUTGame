@@ -7,6 +7,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
+import ru.sut.BrainField.model.dbo.CellContentDao;
+import ru.sut.BrainField.model.event.UIEditCell;
 import ru.sut.BrainField.service.TeamService;
 
 @Controller
@@ -22,15 +28,41 @@ public class GameController {
     private String nameCmd2;
 
 
-    @GetMapping("/")
+    @GetMapping({"/", "/index"})
     public String root(Model model) {
-        if (TeamService.field == null){
-            teamService.configureField();
-        }
+
         model.addAttribute("comName1", nameCmd1);
         model.addAttribute("comName2", nameCmd2);
-        model.addAttribute("field", TeamService.field);
+        model.addAttribute("fieldCom1", teamService.getField1());
+        model.addAttribute("fieldCom2", teamService.getField2());
         return "game"; //view
+    }
+
+
+    @GetMapping("/config")
+    public String root2(Model model) {
+        model.addAttribute("comName1", nameCmd1);
+        model.addAttribute("comName2", nameCmd2);
+        model.addAttribute("fieldCom1", teamService.getField1());
+        model.addAttribute("fieldCom2", teamService.getField2());
+        return "config"; //view
+    }
+
+    @GetMapping("/config/{cid}")
+    public String editCell(Model model, @PathVariable String cid) {
+        CellContentDao cellContent = teamService.getCellByCssId(cid);
+        //model.addAttribute("cell", cellContent);
+        model.addAttribute("images", teamService.getImageList());
+        model.addAttribute("sounds", teamService.getSoundList());
+        model.addAttribute("cellui", new UIEditCell(cid));
+        return "config-cell" ;
+    }
+
+    @PostMapping("/config")
+    public String saveCell(Model model, @ModelAttribute UIEditCell cellui) {
+        model.addAttribute("cellui", cellui);
+        teamService.setCellConfig(cellui);
+        return "redirect:/config";
     }
 
     @GetMapping("/reset")

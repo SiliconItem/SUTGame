@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<script th:src="@{/js/sockjs-0.3.4.js}" > </script>
+<script th:src="@{/js/stomp.js}" > </script>
+<script th:src="@{/js/gamepage.js}" > </script>
+<script th:src="@{/js/modal.js}" > </script>
+
+<link rel="stylesheet" th:href="@{/css/game.css}" />
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>SUT Game</title>
+</head>
+
+
+<body>
+
+
+<div>
+    <!--/*@thymesVar id="cellui" type=""*/-->
+    <form action="#" th:action="@{/config}" th:object="${cellui}" method="post">
+        <p>CellID:  <input type="text" th:field="*{cid}" /> </p>
+        <p>Image:   <select th:field="*{image}">
+            <option th:each="image : ${images}"
+                    th:value="${image}"
+                    th:utext="${image}"/>
+                    </select>
+        </p>
+        <p>Image:   <select th:field="*{sound}">
+            <option th:each="sound : ${sounds}"
+                    th:value="${sound}"
+                    th:utext="${sound}"/>
+        </select>
+        </p>
+        <p>Score:   <input type="text" th:field="*{score}" /></p>
+
+        <input type="submit" />
+    </form>
+</div>
+
+</body>
+</html>

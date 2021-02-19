@@ -25,7 +25,7 @@
         <table align="center" border="1" th:style="'background: url(/media/bg2.png);'">
             <tr>
                 <th:block th:each="item: ${fieldCom1}">
-                    <td th:attr="id=${item.cellId}" th:data-id="${item.cellId}" th:onclick="sendMessage('field1', [[${item.cellId}]])" >
+                    <td th:style="'background: url(/tmp/appdata/image/1.PNG);'" th:attr="id=${item.cellId}" th:data-id="${item.cellId}" th:onclick="window.location='/config/'+[[${item.cellId}]]"  >
 
                     </td>
                     <th:block th:if="(${itemStat.index} + 1) % 10 eq 0 and ${itemStat.index} ge 1 " >
@@ -43,7 +43,7 @@
         <table align="center" border="1" th:style="'background: url(/media/bg5.png);'">
             <tr>
                 <th:block th:each="item: ${fieldCom2}">
-                    <td th:attr="id=${item.cellId}" th:data-id="${item.cellId}" th:onclick="sendMessage('field2', [[${item.cellId}]])" >
+                    <td th:attr="id=${item.cellId}" th:data-id="${item.cellId}" onclick="window.location='index1.php'" >
 
                     </td>
                     <th:block th:if="(${itemStat.index} + 1) % 10 eq 0 and ${itemStat.index} ge 1 " >

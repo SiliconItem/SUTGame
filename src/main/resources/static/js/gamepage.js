@@ -76,7 +76,7 @@ function showMessageOutput(messageOutput) {
 
 
     document.getElementById(cid).style.backgroundColor  = color;
-    document.getElementById(cid).style.opacity = '0.3';
+    document.getElementById(cid).style.opacity = '0.7';
     audio.play()
 }
 

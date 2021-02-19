@@ -3,19 +3,14 @@ package ru.sut.BrainField.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
-import ru.sut.BrainField.model.dbo.QuestionDao;
-import ru.sut.BrainField.model.dto.CellModelDto;
-import ru.sut.BrainField.model.dto.FieldModelDto;
+import ru.sut.BrainField.model.dbo.CellContentDao;
+import ru.sut.BrainField.model.event.UIEditCell;
 import ru.sut.BrainField.repository.QuestionRepository;
 
 import javax.annotation.PostConstruct;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.io.File;
+import java.util.*;
 
 @Service
 public class TeamService {
@@ -23,40 +18,61 @@ public class TeamService {
     @Autowired
     private QuestionRepository repository;
 
-    @Value("${app.field.quesrand}")
-    private int PROB;
-    @Value("${app.field.size}")
-    private int fieldSize;
+    @Value("${app.data.path}")
+    private String dataPath;
 
-    public static FieldModelDto field;
+    private List<CellContentDao> field1 = new ArrayList<>();
+    private List<CellContentDao> field2 = new ArrayList<>();
+    private List<CellContentDao> joinField = new ArrayList<>();
 
+    @PostConstruct
     public void configureField(){
-        FieldModelDto fieldModelDto = new FieldModelDto(fieldSize);
-        List<QuestionDao> questonsDao = repository.findAllByIdIsNotNull();
-
-        for (int i = 1 ; i <= fieldModelDto.getFieldFullSize(); i++){
-            CellModelDto cell =  new CellModelDto(cssIdGenerator(), null);
-            if (new Random().nextInt(100) > PROB) {
-                cell.setQuestionDao(questonsDao.get( new Random().nextInt(questonsDao.size())));
-            }
-            if (i%2 != 0){
-                cell.setCellCssClass("comClass1");
-            } else {
-                cell.setCellCssClass("comClass2");
-            }
-            fieldModelDto.addCell(cell);
+        for (int i = 0; i < 100; i++){
+            field1.add(new CellContentDao(cssIdGenerator()));
+            field2.add(new CellContentDao(cssIdGenerator()));
         }
+        joinField.addAll(field1);
+        joinField.addAll(field2);
 
-        //debug
-        for (CellModelDto cell : fieldModelDto.getCells()){
-            System.out.println(cell.getCellCssId() + "\t" + cell.getQuestionDao());
-        }
+        System.out.println("Ячейки игрового поля инициированы. Количетво: "
+                + (field1.size() + field2.size()));
+    }
 
-        field = fieldModelDto;
+    public List<CellContentDao> getField1() {
+        return field1;
+    }
 
+    public List<CellContentDao> getField2() {
+        return field2;
+    }
+
+    public CellContentDao getCellByCssId(String cssId){
+        return  joinField.stream()
+                .filter(e -> e.getCellId().equals(cssId))
+                .findFirst()
+                .orElse(null);
     }
 
 
+    public void setCellConfig(UIEditCell cellConfig) {
+        joinField.stream()
+                .filter(o -> o.getCellId().equals(cellConfig.getCid()))
+                .findFirst().get()
+                .updateStatus(cellConfig);
+    }
+
+    public String[] getImageList(){
+        File imgFolder = new File(dataPath+"/image");
+        return imgFolder.list();
+    }
+
+    public String[] getSoundList(){
+        File soundFolder = new File(dataPath+"/sound");
+        return soundFolder.list();
+    }
+
+
+    ///// PRIVATE METHODS
     private String cssIdGenerator(){
         int leftLimit = 48;
         int rightLimit = 95;

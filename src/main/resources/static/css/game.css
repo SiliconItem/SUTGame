@@ -1,8 +1,11 @@
 * { margin: 0; padding: 0; }
 p { padding: 10px; }
-#left { position: absolute; left: 0; top: 0; width: 50%; height: 100% }
-#right { position: absolute; right: 0; top: 0; width: 50%; height: 100% }
+#left { position: absolute;   left: 0; top: 0; width: 50%; height: 100%;  border: 1px double black; }
+#right { position: absolute;  right: 0; top: 0; width: 50%; height: 100%; border: 1px double black;}
 #compos { position: absolute; right: 0; top: 0; width: 100%; height: 100% }
+
+table { margin: auto; height: 90%; width: 90% }
+
 .comClass1 {
     border: 2px solid green !important;
     background: green;
@@ -14,6 +17,7 @@ p { padding: 10px; }
     background: blue;
     opacity: 30%;
 }
+
 
 
 .modal__backdrop {
