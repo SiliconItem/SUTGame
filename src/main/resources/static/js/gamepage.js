@@ -26,9 +26,6 @@ function disconnect() {
     console.log("Disconnected");
 }
 
-function sendMessage(field, cid) {
-    stompClient.send("/app/event", {}, JSON.stringify({'commandName':field, 'target':cid}));
-}
 
 function infoge2() {
     console.log("INFO GATHERING");
@@ -50,11 +47,15 @@ window.onclick = function (event) {
     }
 }
 
+function sendMessage(field, cid) {
+    stompClient.send("/app/event", {}, JSON.stringify({'commandName':field, 'target':cid}));
+}
 
 function showMessageOutput(messageOutput) {
     var cid = messageOutput.target;
     var color = messageOutput.color;
-    var audio = new Audio("/media/s3.mp3");
+    var image = messageOutput.image;
+    var audio = new Audio(messageOutput.sound);
 
     var qAction = messageOutput.action;
     if (qAction) {
@@ -74,9 +75,14 @@ function showMessageOutput(messageOutput) {
         modal.show();
     }
 
-
-    document.getElementById(cid).style.backgroundColor  = color;
-    document.getElementById(cid).style.opacity = '0.7';
+    if (image != null){
+        document.getElementById(cid).style.background = image;
+        document.getElementById(cid).style.backgroundImage = image;
+        document.getElementById(cid).style.opacity = '0.5';
+    } else {
+        document.getElementById(cid).style.backgroundColor = "red"
+        document.getElementById(cid).style.opacity = '0.5';
+    }
     audio.play()
 }
 

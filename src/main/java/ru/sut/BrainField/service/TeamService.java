@@ -4,6 +4,7 @@ package ru.sut.BrainField.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import ru.sut.BrainField.configuration.AppConst;
 import ru.sut.BrainField.model.dbo.CellContentDao;
 import ru.sut.BrainField.model.event.UIEditCell;
 import ru.sut.BrainField.repository.QuestionRepository;
@@ -62,12 +63,12 @@ public class TeamService {
     }
 
     public String[] getImageList(){
-        File imgFolder = new File(dataPath+"/image");
+        File imgFolder = new File(dataPath + AppConst.IMG_PTH_PART);
         return imgFolder.list();
     }
 
     public String[] getSoundList(){
-        File soundFolder = new File(dataPath+"/sound");
+        File soundFolder = new File(dataPath + AppConst.SND_PTH_PART);
         return soundFolder.list();
     }
 

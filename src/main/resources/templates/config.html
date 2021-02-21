@@ -54,7 +54,7 @@
         <p align="center" th:text="${comName2}"> </p>
         <table align="center" border="1" th:style="'background: url(/media/appdata/backgr/bg5.png);'">
             <tr>
-                <th:block th:each="item: ${fieldCom1}">
+                <th:block th:each="item: ${fieldCom2}">
                     <td th:attr="id=${item.cellId}" th:data-id="${item.cellId}"
                         th:onclick="window.location='/config/'+[[${item.cellId}]]"  >
 
