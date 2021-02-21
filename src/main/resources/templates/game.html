@@ -22,7 +22,7 @@
     <!-- Comm A -->
     <div id="left">
         <p align="center" th:text="${comName1}"> </p>
-        <table align="center" border="1" th:style="'background: url(/media/bg2.png);'">
+        <table align="center" border="1" th:style="'background: url(/media/appdata/backgr/bg2.png);'">
             <tr>
                 <th:block th:each="item: ${fieldCom1}">
                     <td th:attr="id=${item.cellId}" th:data-id="${item.cellId}" th:onclick="sendMessage('field1', [[${item.cellId}]])" >
@@ -40,7 +40,7 @@
     <!-- Comm B -->
     <div id="right">
         <p align="center" th:text="${comName2}"> </p>
-        <table align="center" border="1" th:style="'background: url(/media/bg5.png);'">
+        <table align="center" border="1" th:style="'background: url(media/appdata/backgr/bg5.png);'">
             <tr>
                 <th:block th:each="item: ${fieldCom2}">
                     <td th:attr="id=${item.cellId}" th:data-id="${item.cellId}" th:onclick="sendMessage('field2', [[${item.cellId}]])" >

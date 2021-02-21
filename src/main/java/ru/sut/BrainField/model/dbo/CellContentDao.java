@@ -10,6 +10,7 @@ public class CellContentDao {
     private String cellSound;
     private Integer cellScore;
 
+
     public CellContentDao(String cellId) {
         this.cellId = cellId;
     }
@@ -19,6 +20,8 @@ public class CellContentDao {
         this.cellSound = event.getSound();
         this.cellScore = event.getScore();
     }
+
+
     public String getCellId() {
         return cellId;
     }

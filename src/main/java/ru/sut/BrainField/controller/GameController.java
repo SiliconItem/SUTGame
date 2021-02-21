@@ -26,7 +26,8 @@ public class GameController {
     private String nameCmd1;
     @Value("${app.field.NameB}")
     private String nameCmd2;
-
+    @Value("${app.data.path}")
+    private String dataPath;
 
     @GetMapping({"/", "/index"})
     public String root(Model model) {
@@ -41,6 +42,7 @@ public class GameController {
 
     @GetMapping("/config")
     public String root2(Model model) {
+        model.addAttribute("dataPath", dataPath);
         model.addAttribute("comName1", nameCmd1);
         model.addAttribute("comName2", nameCmd2);
         model.addAttribute("fieldCom1", teamService.getField1());

@@ -22,10 +22,22 @@
     <!-- Comm A -->
     <div id="left">
         <p align="center" th:text="${comName1}"> </p>
-        <table align="center" border="1" th:style="'background: url(/media/bg2.png);'">
+        <table cellspacing="0" cellpadding="0" align="center" border="1"
+               th:style="'background: url(/media/appdata/backgr/bg2.png);'">
             <tr>
                 <th:block th:each="item: ${fieldCom1}">
-                    <td th:style="'background: url(/tmp/appdata/image/1.PNG);'" th:attr="id=${item.cellId}" th:data-id="${item.cellId}" th:onclick="window.location='/config/'+[[${item.cellId}]]"  >
+                    <td th:attr="id=${item.cellId}" th:data-id="${item.cellId}"
+                        th:onclick="window.location='/config/'+[[${item.cellId}]]"  >
+
+                        <th:block th:if="${item.cellImage} eq null" >
+                            <img style="opacity:0;" align="center" width="100%" height="auto"
+                                 th:src="'/media/appdata/backgr/empty.png'" />
+                        </th:block>
+
+                        <th:block th:if="${item.cellImage} ne null" >
+                            <img style="opacity: 0.95;" align="center" width="100%" height="auto"
+                                  th:src="'/media/appdata/image/'+${item.cellImage}" />
+                        </th:block>
 
                     </td>
                     <th:block th:if="(${itemStat.index} + 1) % 10 eq 0 and ${itemStat.index} ge 1 " >
@@ -40,10 +52,21 @@
     <!-- Comm B -->
     <div id="right">
         <p align="center" th:text="${comName2}"> </p>
-        <table align="center" border="1" th:style="'background: url(/media/bg5.png);'">
+        <table align="center" border="1" th:style="'background: url(/media/appdata/backgr/bg5.png);'">
             <tr>
-                <th:block th:each="item: ${fieldCom2}">
-                    <td th:attr="id=${item.cellId}" th:data-id="${item.cellId}" onclick="window.location='index1.php'" >
+                <th:block th:each="item: ${fieldCom1}">
+                    <td th:attr="id=${item.cellId}" th:data-id="${item.cellId}"
+                        th:onclick="window.location='/config/'+[[${item.cellId}]]"  >
+
+                        <th:block th:if="${item.cellImage} eq null" >
+                            <img style="opacity:0;" align="center" width="100%" height="auto"
+                                 th:src="'/media/appdata/backgr/empty.png'" />
+                        </th:block>
+
+                        <th:block th:if="${item.cellImage} ne null" >
+                            <img style="opacity: 0.95;" align="center" width="100%" height="auto"
+                                 th:src="'/media/appdata/image/'+${item.cellImage}" />
+                        </th:block>
 
                     </td>
                     <th:block th:if="(${itemStat.index} + 1) % 10 eq 0 and ${itemStat.index} ge 1 " >
