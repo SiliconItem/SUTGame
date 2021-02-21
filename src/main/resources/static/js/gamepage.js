@@ -57,23 +57,6 @@ function showMessageOutput(messageOutput) {
     var image = messageOutput.image;
     var audio = new Audio(messageOutput.sound);
 
-    var qAction = messageOutput.action;
-    if (qAction) {
-        var ff1 = messageOutput.actionData;
-        var ff2 = messageOutput.actionReq1;
-        var ff3 = messageOutput.actionReq2;
-        var ff4 = messageOutput.actionReq3;
-
-        var modal = $modal({
-            title: ff1,
-            content: ff2 +'<br>' + ff3 + '<br>' + ff4,
-         /*   footerButtons: [
-                { class: 'btn modal__btn-close', text: 'Отмена', handler: 'modalHandlerCancel' },
-                { class: 'btn btn__ok', text: 'ОК', handler: 'modalHandlerOk' }
-            ]*/
-        });
-        modal.show();
-    }
 
     if (image != null){
         document.getElementById(cid).style.background = image;
