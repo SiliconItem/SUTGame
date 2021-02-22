@@ -32,7 +32,7 @@ public class APIController {
 
     @MessageMapping("/event")
     @SendTo("/topic/messages")
-    public UIPushGamer send(final UIEventGamer event) throws Exception {
+    public UIPushGamer consume(final UIEventGamer event) throws Exception {
         log.debug(event.toString());
         String cidTarget = event.getTarget();
         CellContentDao cell = teamService.getCellByCssId(cidTarget);

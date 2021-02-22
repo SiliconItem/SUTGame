@@ -58,9 +58,10 @@ public class TeamService {
     public void setCellConfig(UIEditCell cellConfig) {
         joinField.stream()
                 .filter(o -> o.getCellId().equals(cellConfig.getCid()))
-                .findFirst().get()
+                .findFirst().get() //CellContentDao
                 .updateStatus(cellConfig);
     }
+
 
     public String[] getImageList(){
         File imgFolder = new File(dataPath + AppConst.IMG_PTH_PART);

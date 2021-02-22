@@ -53,20 +53,22 @@ function sendMessage(field, cid) {
 
 function showMessageOutput(messageOutput) {
     var cid = messageOutput.target;
-    var color = messageOutput.color;
-    var image = messageOutput.image;
-    var audio = new Audio(messageOutput.sound);
 
-
-    if (image != null){
-        document.getElementById(cid).style.background = image;
-        document.getElementById(cid).style.backgroundImage = image;
-        document.getElementById(cid).style.opacity = '0.5';
+    if (messageOutput.configured){
+        var imageEl = document.getElementById('IMG'+cid);
+        imageEl.src = messageOutput.image;
+        imageEl.style.opacity = 1;
+        var audio = new Audio(messageOutput.sound);
+        audio.play()
     } else {
-        document.getElementById(cid).style.backgroundColor = "red"
+        var node = document.getElementById(cid);
+        node.removeChild(node.lastChild);
+        document.getElementById(cid).style.backgroundColor = messageOutput.color;
         document.getElementById(cid).style.opacity = '0.5';
+
     }
-    audio.play()
+
+
 }
 
 

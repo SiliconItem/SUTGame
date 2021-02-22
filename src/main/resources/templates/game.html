@@ -21,11 +21,16 @@
     <!-- Comm A -->
     <div id="left">
         <p align="center" th:text="${comName1}"> </p>
-        <table align="center" border="1" th:style="'background: url(/media/appdata/backgr/bg2.png);'">
+        <table cellspacing="0" cellpadding="0" align="center" border="1"
+               th:style="'background: url(/media/appdata/backgr/bg1.png);'">
             <tr>
                 <th:block th:each="item: ${fieldCom1}">
                     <td th:attr="id=${item.cellId}" th:data-id="${item.cellId}"
                         th:onclick="sendMessage('field1', [[${item.cellId}]])" >
+
+                        <img th:attr="id='IMG'+${item.cellId}" th:data-id="'IMG'+${item.cellId}"
+                             style="opacity:0;" align="center" width="100%" height="auto"
+                             th:src="'/media/appdata/backgr/empty.png'" />
 
                     </td>
                     <th:block th:if="(${itemStat.index} + 1) % 10 eq 0 and ${itemStat.index} ge 1 " >
@@ -40,11 +45,16 @@
     <!-- Comm B -->
     <div id="right">
         <p align="center" th:text="${comName2}"> </p>
-        <table align="center" border="1" th:style="'background: url(media/appdata/backgr/bg5.png);'">
+        <table cellspacing="0" cellpadding="0" align="center" border="1"
+               th:style="'background: url(/media/appdata/backgr/bg2.png);'">
             <tr>
                 <th:block th:each="item: ${fieldCom2}">
                     <td th:attr="id=${item.cellId}" th:data-id="${item.cellId}"
                         th:onclick="sendMessage('field2', [[${item.cellId}]])" >
+
+                        <img th:attr="id='IMG'+${item.cellId}" th:data-id="'IMG'+${item.cellId}"
+                             style="opacity:0;" align="center" width="100%" height="auto"
+                             th:src="'/media/appdata/backgr/empty.png'" />
 
                     </td>
                     <th:block th:if="(${itemStat.index} + 1) % 10 eq 0 and ${itemStat.index} ge 1 " >

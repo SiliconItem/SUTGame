@@ -6,9 +6,10 @@ public class UIPushGamer {
 
     private String commandName;
     private String target;
-    private String color;
+    private String color = "red";
     private String image;
     private String sound;
+    private boolean configured;
 
     public UIPushGamer(String target) {
         this.target = target;
@@ -19,6 +20,19 @@ public class UIPushGamer {
         this.target = cellDao.getCellId();
         this.image  = cellDao.getCellImage();
         this.sound  = cellDao.getCellSound();
+        this.configured = cellDao.isConfigured();
+    }
+
+    public Boolean isConfigured() {
+        return configured;
+    }
+
+    public Boolean getConfigured() {
+        return configured;
+    }
+
+    public void setConfigured(Boolean configured) {
+        this.configured = configured;
     }
 
     public String getImage() {

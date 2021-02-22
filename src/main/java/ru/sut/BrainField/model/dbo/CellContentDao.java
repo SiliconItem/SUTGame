@@ -9,6 +9,8 @@ public class CellContentDao {
     private String cellImage;
     private String cellSound;
     private Integer cellScore;
+    private boolean configured;
+    private boolean pressed;
 
 
     public CellContentDao(String cellId) {
@@ -19,8 +21,32 @@ public class CellContentDao {
         this.cellImage = event.getImage();
         this.cellSound = event.getSound();
         this.cellScore = event.getScore();
+        this.configured = true;
     }
 
+    public Boolean getConfigured() {
+        return configured;
+    }
+
+    public Boolean isConfigured() {
+        return configured;
+    }
+
+    public void setConfigured(Boolean configured) {
+        this.configured = configured;
+    }
+
+    public Boolean isPressed() {
+        return pressed;
+    }
+
+    public Boolean getPressed() {
+        return pressed;
+    }
+
+    public void setPressed(Boolean pressed) {
+        this.pressed = pressed;
+    }
 
     public String getCellId() {
         return cellId;
