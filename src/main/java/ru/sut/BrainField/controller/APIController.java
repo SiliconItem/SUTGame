@@ -3,7 +3,6 @@ package ru.sut.BrainField.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -18,17 +17,9 @@ public class APIController {
 
     @Autowired
     private TeamService teamService;
-    @Value("${app.data.path}")
-    private String dataPath;
-    @Value("${app.rel.data.path}")
-    private String dataRelPath;
 
     static Logger log = LoggerFactory.getLogger(APIController.class);
 
-    /*
-    Репликатор UI -> Broker
-
-     */
 
     @MessageMapping("/event")
     @SendTo("/topic/messages")
@@ -37,8 +28,8 @@ public class APIController {
         String cidTarget = event.getTarget();
         CellContentDao cell = teamService.getCellByCssId(cidTarget);
         UIPushGamer response = new UIPushGamer(cell);
-        response.setImage(dataRelPath + AppConst.IMG_PTH_PART + "/" + response.getImage());
-        response.setSound(dataRelPath + AppConst.SND_PTH_PART + "/" + response.getSound());
+        response.setImage(AppConst.IMAGE_PATH + "/" + response.getImage());
+        response.setSound(AppConst.SOUND_PATH + "/" + response.getSound());
         return response;
     }
 }

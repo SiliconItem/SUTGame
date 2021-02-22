@@ -22,7 +22,7 @@
     <div id="left">
         <p align="center" th:text="${comName1}"> </p>
         <table cellspacing="0" cellpadding="0" align="center" border="1"
-               th:style="'background: url(/media/appdata/backgr/bg1.png);'">
+               th:style="'background: url(/media/backgr/bg1.png);'">
             <tr>
                 <th:block th:each="item: ${fieldCom1}">
                     <td th:attr="id=${item.cellId}" th:data-id="${item.cellId}"
@@ -30,7 +30,7 @@
 
                         <img th:attr="id='IMG'+${item.cellId}" th:data-id="'IMG'+${item.cellId}"
                              style="opacity:0;" align="center" width="100%" height="auto"
-                             th:src="'/media/appdata/backgr/empty.png'" />
+                             th:src="'/media/backgr/empty.png'" />
 
                     </td>
                     <th:block th:if="(${itemStat.index} + 1) % 10 eq 0 and ${itemStat.index} ge 1 " >
@@ -46,7 +46,7 @@
     <div id="right">
         <p align="center" th:text="${comName2}"> </p>
         <table cellspacing="0" cellpadding="0" align="center" border="1"
-               th:style="'background: url(/media/appdata/backgr/bg2.png);'">
+               th:style="'background: url(/media/backgr/bg2.png);'">
             <tr>
                 <th:block th:each="item: ${fieldCom2}">
                     <td th:attr="id=${item.cellId}" th:data-id="${item.cellId}"
@@ -54,7 +54,7 @@
 
                         <img th:attr="id='IMG'+${item.cellId}" th:data-id="'IMG'+${item.cellId}"
                              style="opacity:0;" align="center" width="100%" height="auto"
-                             th:src="'/media/appdata/backgr/empty.png'" />
+                             th:src="'/media/backgr/empty.png'" />
 
                     </td>
                     <th:block th:if="(${itemStat.index} + 1) % 10 eq 0 and ${itemStat.index} ge 1 " >

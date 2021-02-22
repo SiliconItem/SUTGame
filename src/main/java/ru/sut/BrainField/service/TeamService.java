@@ -19,7 +19,7 @@ public class TeamService {
     @Autowired
     private QuestionRepository repository;
 
-    @Value("${app.data.path}")
+    @Value("${spring.resources.static-locations}")
     private String dataPath;
 
     private List<CellContentDao> field1 = new ArrayList<>();
@@ -64,15 +64,15 @@ public class TeamService {
 
 
     public String[] getImageList(){
-        File imgFolder = new File(dataPath + AppConst.IMG_PTH_PART);
-        return imgFolder.list();
+        File imgFolder = new File(dataPath.substring(5) + AppConst.IMAGE_PATH);
+        String[] images = imgFolder.list();
+        return images;
     }
 
     public String[] getSoundList(){
-        File soundFolder = new File(dataPath + AppConst.SND_PTH_PART);
-        return soundFolder.list();
+        File imgFolder = new File(dataPath.substring(5) + AppConst.SOUND_PATH);
+        return imgFolder.list();
     }
-
 
     ///// PRIVATE METHODS
     private String cssIdGenerator(){
@@ -89,5 +89,4 @@ public class TeamService {
 
         return generatedString;
     }
-
 }

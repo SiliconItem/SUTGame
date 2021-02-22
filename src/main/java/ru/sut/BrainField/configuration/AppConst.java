@@ -2,6 +2,6 @@ package ru.sut.BrainField.configuration;
 
 public class AppConst {
 
-    public static final String IMG_PTH_PART = "/image";
-    public static final String SND_PTH_PART = "/sound";
+    public static final String IMAGE_PATH = "media/image";
+    public static final String SOUND_PATH = "media/sound";
 }
