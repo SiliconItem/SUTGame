@@ -28,6 +28,8 @@ public class TeamService {
 
     @PostConstruct
     public void configureField(){
+        this.field1.clear();
+        this.field2.clear();
         for (int i = 0; i < 100; i++){
             field1.add(new CellContentDao(cssIdGenerator()));
             field2.add(new CellContentDao(cssIdGenerator()));

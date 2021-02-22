@@ -68,6 +68,6 @@ public class GameController {
     @GetMapping("/reset")
     public String reset(Model model) {
         teamService.configureField();
-        return "/"; //view
+        return "redirect:/"; //view
     }
 }
