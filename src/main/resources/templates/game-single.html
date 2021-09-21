@@ -27,9 +27,21 @@
                     <td th:attr="id=${item.cellId}" th:data-id="${item.cellId}"
                         th:onclick="sendMessage('field1', [[${item.cellId}]])" >
 
-                        <img th:attr="id='IMG'+${item.cellId}" th:data-id="'IMG'+${item.cellId}"
-                             style="opacity:0;" align="center" width="100%" height="auto"
-                             th:src="'/media/backgr/empty.png'" />
+                        <th:block th:if="${item.pressed} and ${item.configured}" >
+                            <img align="center" width="100%" height="auto"
+                                 th:src="${item.cellImage}" />
+                        </th:block>
+                        <th:block th:if="${item.pressed} and ${! item.configured}" >
+                            <B>TTEEXXTT</B>
+                        </th:block>
+
+                        <th:block th:if="${!item.pressed}" >
+                            <img th:attr="id='IMG'+${item.cellId}" th:data-id="'IMG'+${item.cellId}"
+                                 style="opacity:0;" align="center" width="100%" height="auto"
+                                 th:src="'/media/backgr/empty.png'" />
+                        </th:block>
+
+
                     </td>
                     <th:block th:if="(${itemStat.index} + 1) % 10 eq 0 and ${itemStat.index} ge 1 " >
                         <th:block th:utext="'</tr><tr>'"/>

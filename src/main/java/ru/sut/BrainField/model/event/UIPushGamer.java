@@ -6,7 +6,7 @@ public class UIPushGamer {
 
     private String commandName;
     private String target;
-    private String color = "red";
+    private String color = "yellow";
     private String image;
     private String sound;
     private boolean configured;

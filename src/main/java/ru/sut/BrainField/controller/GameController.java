@@ -30,7 +30,6 @@ public class GameController {
 
     @GetMapping({"/", "/index"})
     public String root(Model model) {
-
         model.addAttribute("comName1", nameCmd1);
         model.addAttribute("comName2", nameCmd2);
         model.addAttribute("fieldCom1", teamService.getField1());
@@ -41,18 +40,17 @@ public class GameController {
 
     @GetMapping({"/mon{num}", "/index/mon{num}"})
     public String singleMonitor(Model model, @PathVariable int num) {
-        model.addAttribute("comName1", nameCmd1);
-        model.addAttribute("comName2", nameCmd2);
         if (num == 1) {
+            model.addAttribute("comName", nameCmd1);
             model.addAttribute("fieldCom", teamService.getField1());
         } else if (num == 2){
+            model.addAttribute("comName", nameCmd2);
             model.addAttribute("fieldCom", teamService.getField2());
         } else {
             return "redirect:/";
         }
         return "game-single"; //view
     }
-
 
 
 
@@ -81,6 +79,8 @@ public class GameController {
         teamService.setCellConfig(cellui);
         return "redirect:/config";
     }
+
+
 
     @GetMapping("/reset")
     public String reset(Model model) {

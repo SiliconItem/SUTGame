@@ -20,16 +20,19 @@ public class APIController {
 
     static Logger log = LoggerFactory.getLogger(APIController.class);
 
-
     @MessageMapping("/event")
     @SendTo("/topic/messages")
     public UIPushGamer consume(final UIEventGamer event) throws Exception {
         log.debug(event.toString());
         String cidTarget = event.getTarget();
         CellContentDao cell = teamService.getCellByCssId(cidTarget);
+        cell.setPressed(true);
+        cell.setCellImage(AppConst.IMAGE_PATH + "/" + cell.getCellImage());
+        cell.setCellSound(AppConst.SOUND_PATH + "/" + cell.getCellSound());
         UIPushGamer response = new UIPushGamer(cell);
-        response.setImage(AppConst.IMAGE_PATH + "/" + response.getImage());
-        response.setSound(AppConst.SOUND_PATH + "/" + response.getSound());
+        response.setImage(cell.getCellImage());
+        response.setSound(cell.getCellSound());
+
         return response;
     }
 }
